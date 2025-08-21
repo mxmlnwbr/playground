@@ -4,6 +4,8 @@ import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 
+import ScrollTriggered from "~/app/_components/scroll-triggered";
+
 export default async function Home() {
   const session = await auth();
   const hello = await api.post.hello({ text: session?.user?.email || "Guest" });
@@ -38,6 +40,7 @@ export default async function Home() {
           </div>
 
           {session?.user && <LatestPost />}
+          <ScrollTriggered />
         </div>
       </main>
     </HydrateClient>
