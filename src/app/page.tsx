@@ -8,7 +8,7 @@ import ScrollTriggered from "~/app/_components/scroll-triggered";
 
 export default async function Home() {
   const session = await auth();
-  const hello = await api.post.hello({ text: session?.user?.email || "Guest" });
+  const hello = await api.post.hello({ text: session?.user?.email ?? "Guest" });
 
   if (session?.user) {
     void api.post.getLatest.prefetch();
