@@ -70,7 +70,7 @@ export default function ContactForm() {
                 />
                 {errors.password && touched.password && errors.password}
             </div>
-            <Button variant="ghost" type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
               Submit
             </Button>
           </form>
