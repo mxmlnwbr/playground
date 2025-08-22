@@ -6,6 +6,7 @@ import { api, HydrateClient } from "~/trpc/server";
 
 import ScrollTriggered from "~/app/_components/scroll-triggered";
 import ScrollLinked from "~/app/_components/scroll-linked";
+import ContactForm from "~/app/_components/contact-form";
 
 export default async function Home() {
   const session = await auth();
@@ -39,7 +40,7 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-
+          <ContactForm />
           {session?.user && <LatestPost />}
           <ScrollTriggered />
           <ScrollLinked />
