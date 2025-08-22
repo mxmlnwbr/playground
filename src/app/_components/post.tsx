@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Formik } from "formik";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
@@ -10,11 +10,9 @@ export function LatestPost() {
   const [latestPost] = api.post.getLatest.useSuspenseQuery();
 
   const utils = api.useUtils();
-  const [name, setName] = useState("");
   const createPost = api.post.create.useMutation({
     onSuccess: async () => {
       await utils.post.invalidate();
-      setName("");
     },
   });
 
@@ -25,26 +23,30 @@ export function LatestPost() {
       ) : (
         <p>You have no posts yet.</p>
       )}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createPost.mutate({ name });
+      <Formik
+        initialValues={{ name: "" }}
+        onSubmit={(values) => {
+          createPost.mutate({ name: values.name });
         }}
-        className="flex flex-col gap-2"
       >
-        <Input
-          type="text"
-          placeholder="Title"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Button
-          type="submit"
-          disabled={createPost.isPending}
-        >
-          {createPost.isPending ? "Submitting..." : "Submit"}
-        </Button>
-      </form>
+        {({ values, handleChange, handleSubmit }) => (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <Input
+              type="text"
+              name="name"
+              placeholder="Title"
+              value={values.name}
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              disabled={createPost.isPending}
+            >
+              {createPost.isPending ? "Submitting..." : "Submit"}
+            </Button>
+          </form>
+        )}
+      </Formik>
     </div>
   );
 }
