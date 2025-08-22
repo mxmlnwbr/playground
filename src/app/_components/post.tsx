@@ -30,7 +30,7 @@ export function LatestPost() {
         }}
       >
         {({ values, handleChange, handleSubmit }) => (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit}>
             <Input
               type="text"
               name="name"

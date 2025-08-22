@@ -14,7 +14,7 @@ interface FormValues {
 
 export default function ContactForm() {
   return (
-    <div>
+    <div className="w-full max-w-xs">
       <Formik
         initialValues={{ email: '', password: '' }}
         validate={(values: FormValues) => {
