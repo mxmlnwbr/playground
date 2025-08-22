@@ -26,6 +26,9 @@ export default function ContactForm() {
           ) {
             errors.email = 'Invalid email address';
           }
+          if (!values.password) {
+            errors.password = 'Required';
+          }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -56,7 +59,7 @@ export default function ContactForm() {
                 onBlur={handleBlur}
                 value={values.email}
                 />
-                {errors.email && touched.email && errors.email}
+                {<p className="text-red-500">{errors.email && touched.email && errors.email}</p>}
             </div>
             <div>
                 <Label htmlFor="password">Password</Label>
@@ -68,7 +71,7 @@ export default function ContactForm() {
                 onBlur={handleBlur}
                 value={values.password}
                 />
-                {errors.password && touched.password && errors.password}
+                {<p className="text-red-500">{errors.password && touched.password && errors.password}</p>}
             </div>
             <Button type="submit" disabled={isSubmitting}>
               Submit
